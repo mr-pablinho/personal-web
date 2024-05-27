@@ -1,6 +1,6 @@
 # Personal Professional and Academic Webpage
 
-This is the README file for my professional and academic webpage. In this webpage, I aim to showcase my professional experience, research projects and other topics I am interested in.
+This is my professional and academic webpage. In this webpage, I aim to showcase my professional experience, research projects and other topics I am interested in.
 
 ## License
 
