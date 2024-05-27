@@ -1,6 +1,15 @@
 # Personal Professional and Academic Webpage
+This is my professional and academic webpage. In this webpage, I aim to showcase my professional experience, research projects, and other topics I am interested in. I have opted for a minimalist design to provide a clean and focused user experience.
 
-This is my professional and academic webpage. In this webpage, I aim to showcase my professional experience, research projects and other topics I am interested in.
+## Todo List
+- Remove placeholders
+- Update content for all the pages
+- Change links for buttons
+- Improve design and layout of the webpage
+- Include links to relevant publications
+- Optimize webpage for mobile devices
+- Add a contact form for visitors to reach out
+- Regularly update and maintain the webpage
 
 ## License
 
