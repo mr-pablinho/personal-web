@@ -11,6 +11,19 @@
     --code-text-color: #f8f8f2;
 }
 
+/* Dark mode color variables */
+.dark-mode {
+    --background-color: #1a1a1a;
+    --text-color: #e0e0e0;
+    --accent-color: #ff6b6b;
+    --border-color: #404040;
+    --hover-background-color: #2d2d2d;
+    --heading-color: #f0f0f0;
+    --subtext-color: #b0b0b0;
+    --code-background-color: #282a36;
+    --code-text-color: #f8f8f2;
+}
+
 /* Apply box-sizing to ensure padding and border are included in the element's total width */
 *,
 *::before,
@@ -33,6 +46,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     font-size: 16px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Header styles */
@@ -45,6 +59,8 @@ header {
     font-size: 12px;
     font-weight: bold;
     padding: 10px 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
 }
 
 header h1 {
@@ -65,6 +81,7 @@ nav {
     justify-content: space-around;
     align-items: center;
     position: relative;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .menu-icon {
@@ -107,6 +124,7 @@ nav {
     border-radius: 8px;
     flex: 1;
     font-size: 0.9em;
+    transition: background-color 0.3s ease;
 }
 
 section {
@@ -122,6 +140,76 @@ footer {
     padding: 10px 0;
     margin-top: auto;
     font-size: 0.8em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode toggle styles */
+.theme-toggle {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.toggle-checkbox {
+    display: none;
+}
+
+.toggle-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 30px;
+    background-color: var(--border-color);
+    border-radius: 15px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-label:hover {
+    background-color: var(--hover-background-color);
+}
+
+.toggle-icon {
+    position: absolute;
+    font-size: 16px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toggle-icon.sun {
+    color: #f39c12;
+}
+
+.toggle-icon.moon {
+    color: #f1c40f;
+    opacity: 0;
+    transform: rotate(180deg);
+}
+
+.toggle-checkbox:checked + .toggle-label {
+    background-color: var(--accent-color);
+}
+
+.toggle-checkbox:checked + .toggle-label .toggle-icon.sun {
+    opacity: 0;
+    transform: rotate(180deg);
+}
+
+.toggle-checkbox:checked + .toggle-label .toggle-icon.moon {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+.toggle-checkbox:not(:checked) + .toggle-label .toggle-icon.sun {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+.toggle-checkbox:not(:checked) + .toggle-label .toggle-icon.moon {
+    opacity: 0;
+    transform: rotate(-180deg);
 }
 
 /* Headings styles */
@@ -238,6 +326,20 @@ code {
     section {
         padding: 2px 0;
     }
+
+    .theme-toggle {
+        top: 8px;
+        right: 10px;
+    }
+
+    .toggle-label {
+        width: 50px;
+        height: 25px;
+    }
+
+    .toggle-icon {
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -256,5 +358,19 @@ code {
 
     nav a {
         font-size: 0.9em;
+    }
+
+    .theme-toggle {
+        top: 5px;
+        right: 5px;
+    }
+
+    .toggle-label {
+        width: 45px;
+        height: 22px;
+    }
+
+    .toggle-icon {
+        font-size: 12px;
     }
 }

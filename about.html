@@ -10,7 +10,6 @@
     />
     <link rel="stylesheet" href="styles.css" />
     <script defer src="scripts.js"></script>
-    <!-- Google Analytics -->
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-X"
@@ -26,18 +25,20 @@
     </script>
   </head>
   <body>
-    <header>
+<header>
       <h1>The Almanack of Pablo</h1>
-      <!-- <p>About Me</p> -->
+      <div class="theme-toggle">
+        <input type="checkbox" id="dark-mode-toggle" class="toggle-checkbox">
+        <label for="dark-mode-toggle" class="toggle-label">
+          <span class="toggle-icon sun">☀️</span>
+          <span class="toggle-icon moon">🌙</span>
+        </label>
+      </div>
     </header>
     <nav>
-      <div class="menu-icon" id="menu-icon">
-        &#9776;
-        <!-- Hamburger icon -->
-      </div>
+      <div class="menu-icon" id="menu-icon">&#9776;</div>
       <div class="nav-links" id="nav-links">
         <a href="index.html">🏠 Home</a>
-        <!-- <a href="about.html" class="active">👨🏻‍💻 About Me</a> -->
         <a href="projects.html">🚀 Projects</a>
         <a href="publications.html">📚 Publications</a>
         <a href="blog.html">✍🏻 Blog</a>
@@ -49,10 +50,19 @@
         <h2>About Me</h2>
         <p>
           Hi, I'm Pablo Merchán-Rivera. Professionally, I describe myself as an
-          engineer and data scientist. I hold a doctoral degree in engineering
-          from the Technical University of Munich. I love doing science and
-          using my skills to find practical solutions to environmental issues,
-          both in academia and industry.
+          engineer and data scientist.
+        </p>
+        <p>
+          I hold a doctoral degree in engineering from the Technical University
+          of Munich.
+        </p>
+        <p>
+          I love doing science and using my skills to find practical solutions
+          to <strong>complex challenges</strong>, both in academia and industry.
+        </p>
+        <p>
+          I'm originally from Ecuador and have been living in Germany for the
+          past nine years.
         </p>
         <p>
           I'm originally from Ecuador and have been living in Germany for the
