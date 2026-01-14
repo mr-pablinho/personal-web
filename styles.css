@@ -75,8 +75,8 @@ nav {
     margin-block-start: 0;
     font-family: 'Roboto Mono', monospace;
     padding: 10px 0;
-    border-top: 2px solid var(--border-color);
-    border-bottom: 2px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -205,7 +205,7 @@ footer {
 
 /* Headings styles */
 h2 {
-    border-bottom: 2px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
     padding-bottom: 5px;
     font-family: 'Space Grotesk', sans-serif;
     font-size: 1.5em;
