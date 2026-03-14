@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigating the Chaos: A Pragmatic Approach to LLM Evaluation - Pablo Merchán-Rivera</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header>
+        <h1>The Almanack of Pablo</h1>
+    </header>
+    <nav>
+        <div class="nav-links">
+            <a href="../index.html">🏠 Home</a>
+            <a href="../projects.html">🚀 Projects</a>
+            <a href="../publications.html">📚 Publications</a>
+            <a href="../blog.html">✍🏻 Blog</a>
+            <a href="../contact.html">📧 Contact</a>
+        </div>
+    </nav>
+    <div class="container">
+        <section>
+            <h2>Navigating the Chaos: A Pragmatic Approach to LLM Evaluation</h2>
+            <p class="date" style="color: var(--subtext-color);">November 05, 2025</p>
+            
+            <p>The explosion of Large Language Models (LLMs) has fundamentally shifted how we build software. However, building a prototype that works *most* of the time is easy; building a production-ready system that is robust, reliable, and safe is incredibly difficult. The primary bottleneck? <strong>Evaluation.</strong></p>
+
+            <p>Unlike traditional machine learning where we have clear metrics like Accuracy, F1-score, or RMSE, evaluating generative text is inherently subjective and complex. How do you definitively measure "helpfulness" or "tone"?</p>
+
+            <h3>The Evaluation Triad</h3>
+            <p>In my experience building AI systems, relying on a single evaluation method is a recipe for disaster. I generally recommend a triad approach:</p>
+
+            <ol>
+                <li><strong>Deterministic Metrics (The Baseline):</strong> Where possible, use traditional metrics. If your LLM is extracting structured JSON, you can validate the schema. If it's a classification task masked as generation, use standard classification metrics.</li>
+                <li><strong>LLM-as-a-Judge (The Scalable Arbitrator):</strong> Using a stronger model (like GPT-4) to grade the outputs of your system based on a specific rubric. This is highly scalable but requires careful prompt engineering for the judge itself to ensure grading consistency. Frameworks like Ragas or TruLens are invaluable here.</li>
+                <li><strong>Human-in-the-Loop (The Ground Truth):</strong> There is no substitute for human review. Establish a golden dataset of prompts and perfect responses. Periodically, human experts must review outputs, especially for edge cases and safety considerations.</li>
+            </ol>
+
+            <h3>RAG makes it harder (and more important)</h3>
+            <p>When you introduce Retrieval-Augmented Generation (RAG), you aren't just evaluating the generation component anymore; you are evaluating the retrieval component. If the retriever fetches irrelevant documents, the generator will produce nonsense, regardless of how good the prompt is. This requires evaluating intermediate steps: Context Relevance and Groundedness.</p>
+
+            <p>Evaluation is not an afterthought; it is the core iterative loop of LLM engineering. If you can't measure it, you can't improve it.</p>
+            
+            <br>
+            <a href="../blog.html" class="back-button">← Back to Blog</a>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2026 Pablo Merchán-Rivera. All rights reserved.</p>
+    </footer>
+</body>
+</html>
