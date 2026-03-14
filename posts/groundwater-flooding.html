@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flooding from Below: A Data-Driven Look at a Hidden Risk - Pablo Merchán-Rivera</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <script defer src="../scripts.js"></script>
+</head>
+<body>
+    <header>
+        <h1>The Almanack of Pablo</h1>
+        <div class="theme-toggle">
+            <input type="checkbox" id="dark-mode-toggle" class="toggle-checkbox">
+            <label for="dark-mode-toggle" class="toggle-label">
+                <span class="toggle-icon sun">☀️</span>
+                <span class="toggle-icon moon">🌙</span>
+            </label>
+        </div>
+    </header>
+    <nav>
+        <div class="menu-icon" id="menu-icon">
+            &#9776; <!-- Hamburger icon -->
+        </div>
+        <div class="nav-links" id="nav-links">
+            <a href="../index.html">🏠 Home</a>
+            <a href="../publications.html">📚 Publications</a>
+            <a href="../blog.html">✍🏻 Blog</a>
+            <a href="../contact.html">📧 Contact</a>
+        </div>
+    </nav>
+    <div class="container">
+        <section>
+            <h2>Flooding from Below: A Data-Driven Look at a Hidden Risk</h2>
+            
+            <p>When people think about floods, they usually imagine rivers overflowing or streets filling up after heavy rain. But flooding can also come from below. That was the focus of this study: groundwater flooding, which happens when the water table rises enough to reach the surface or enter basements, cellars, and other underground spaces. It is less visible than river flooding, but it can still cause serious damage to homes and infrastructure. One of the challenges is that it often remains unnoticed until the impacts are already there.</p>
+
+            <p>I looked at this problem through a real flood event in the Alz River valley in southeastern Bavaria, Germany, during the heavy rainfall of June 2013. What interested me was not just where flooding happened, but how to represent the uncertainty around it in a more honest way. A lot of flood maps still give one fixed answer, as if the system were fully known. In reality, groundwater systems are shaped by uncertain inputs, incomplete observations, and changing conditions over space and time. That is why I approached the problem probabilistically rather than deterministically.</p>
+
+            <p>The core idea was to combine a physical groundwater model with Bayesian inference. In simple terms, that means starting with a range of plausible assumptions, comparing them with real measurements, and then updating the model based on the evidence. Before doing that, I used sensitivity analysis to identify which inputs actually mattered most, so the workflow could focus on the parameters that really influenced the results. The Bayesian step then used the DREAM algorithm to sample likely parameter values and quantify uncertainty in a more rigorous way.</p>
+
+            <p>The result was a set of probability maps rather than a single flood map. One type of map showed where groundwater was likely to rise close to the land surface. The other focused on something more concrete: the probability that groundwater would rise high enough to affect the cellar depths of specific houses. For me, that was one of the most meaningful parts of the study, because it connects the modeling directly to real properties and real-world risk.</p>
+
+            <p>What I find most valuable about this work is that it treats uncertainty as part of the result, not as something to hide. Once the model was updated with observations, the maps became more informative and spatially more confident. Instead of pretending there is one perfect answer, the framework shows where risk is more likely, where it is less likely, and how strongly the available data supports those patterns. That is the kind of modeling approach I care about most: using data not just to predict, but to make uncertainty visible and useful.</p>
+
+            <p>In the end, this study was about making an invisible hazard more visible. Groundwater flooding may not look as dramatic as surface flooding, but it can be just as disruptive. By combining physical modeling, statistical inference, and spatial risk mapping, I wanted to show that we can build better tools for understanding hidden flood risk. If you’d like to explore the full methodology and results, you can read the original paper <a href="https://doi.org/10.1016/j.jhydrol.2022.127797">here</a>.</p>
+            
+            <br>
+            <a href="../blog.html" class="back-button">← Back to Blog</a>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2026 Pablo Merchán-Rivera. All rights reserved.</p>
+    </footer>
+</body>
+</html>
