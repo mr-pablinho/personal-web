@@ -1,53 +1,66 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navigating the Chaos: A Pragmatic Approach to LLM Evaluation - Pablo Merchán-Rivera</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <title>Navigating the Chaos: A Pragmatic Approach to LLM Evaluation - Pablo Merch&aacute;n-Rivera</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css">
+    <script defer src="../scripts.js"></script>
 </head>
-<body>
+<body class="dark-mode">
     <header>
         <h1>The Almanack of Pablo</h1>
+        <p class="site-tagline">AI Builder and Data Storyteller</p>
+        <div class="theme-toggle">
+            <input type="checkbox" id="dark-mode-toggle" class="toggle-checkbox" aria-label="Toggle dark mode">
+            <label for="dark-mode-toggle" class="toggle-label"></label>
+        </div>
     </header>
+
     <nav>
-        <div class="nav-links">
-            <a href="../index.html">🏠 Home</a>
-            <a href="../publications.html">📚 Publications</a>
-            <a href="../blog.html">✍🏻 Blog</a>
-            <a href="../contact.html">📧 Contact</a>
+        <button class="menu-icon" id="menu-icon" aria-label="Toggle navigation">&#9776;</button>
+        <div class="nav-links" id="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../publications.html">Publications</a>
+            <a href="../blog.html" class="active">Blog</a>
+            <a href="../contact.html">Contact</a>
         </div>
     </nav>
+
     <div class="container">
         <section>
             <h2>Navigating the Chaos: A Pragmatic Approach to LLM Evaluation</h2>
-            <p class="date" style="color: var(--subtext-color);">November 05, 2025</p>
-            
-            <p>The explosion of Large Language Models (LLMs) has fundamentally shifted how we build software. However, building a prototype that works *most* of the time is easy; building a production-ready system that is robust, reliable, and safe is incredibly difficult. The primary bottleneck? <strong>Evaluation.</strong></p>
+            <p class="meta">November 5, 2025</p>
 
-            <p>Unlike traditional machine learning where we have clear metrics like Accuracy, F1-score, or RMSE, evaluating generative text is inherently subjective and complex. How do you definitively measure "helpfulness" or "tone"?</p>
+            <p>The explosion of large language models has fundamentally shifted how we build software. Building a prototype that works most of the time is easy; building a production-ready system that is robust, reliable, and safe is not. The bottleneck is evaluation.</p>
+
+            <p>Traditional machine learning gives us clear metrics such as accuracy, F1 score, or RMSE. Generative text systems add subjectivity: how do we measure helpfulness, correctness, style, and risk in one framework?</p>
 
             <h3>The Evaluation Triad</h3>
-            <p>In my experience building AI systems, relying on a single evaluation method is a recipe for disaster. I generally recommend a triad approach:</p>
-
+            <p>In practice, relying on one method is fragile. A stronger baseline comes from combining three layers:</p>
             <ol>
-                <li><strong>Deterministic Metrics (The Baseline):</strong> Where possible, use traditional metrics. If your LLM is extracting structured JSON, you can validate the schema. If it's a classification task masked as generation, use standard classification metrics.</li>
-                <li><strong>LLM-as-a-Judge (The Scalable Arbitrator):</strong> Using a stronger model (like GPT-4) to grade the outputs of your system based on a specific rubric. This is highly scalable but requires careful prompt engineering for the judge itself to ensure grading consistency. Frameworks like Ragas or TruLens are invaluable here.</li>
-                <li><strong>Human-in-the-Loop (The Ground Truth):</strong> There is no substitute for human review. Establish a golden dataset of prompts and perfect responses. Periodically, human experts must review outputs, especially for edge cases and safety considerations.</li>
+                <li><strong>Deterministic metrics:</strong> Validate what can be validated. For structured output, enforce schema checks. For latent classification tasks, report standard metrics.</li>
+                <li><strong>LLM-as-a-judge:</strong> Use a stronger model to score outputs against a rubric. This scales quickly but still requires careful judge prompt design and calibration.</li>
+                <li><strong>Human review:</strong> Keep a gold set and periodically audit edge cases, safety constraints, and domain-specific quality that automated checks miss.</li>
             </ol>
 
-            <h3>RAG makes it harder (and more important)</h3>
-            <p>When you introduce Retrieval-Augmented Generation (RAG), you aren't just evaluating the generation component anymore; you are evaluating the retrieval component. If the retriever fetches irrelevant documents, the generator will produce nonsense, regardless of how good the prompt is. This requires evaluating intermediate steps: Context Relevance and Groundedness.</p>
+            <h3>RAG Raises the Bar</h3>
+            <p>With retrieval-augmented generation, quality depends on both retrieval and generation. If retrieved context is weak, the final answer degrades regardless of prompt quality. That means evaluation must include intermediate checks such as context relevance and groundedness.</p>
 
-            <p>Evaluation is not an afterthought; it is the core iterative loop of LLM engineering. If you can't measure it, you can't improve it.</p>
-            
-            <br>
-            <a href="../blog.html" class="back-button">← Back to Blog</a>
+            <p>Evaluation is not an afterthought. It is the core loop of LLM engineering. If you cannot measure behavior, you cannot improve it with confidence.</p>
+
+            <a href="../blog.html" class="back-button">&larr; Back to Blog</a>
         </section>
     </div>
+
     <footer>
-        <p>&copy; 2026 Pablo Merchán-Rivera. All rights reserved.</p>
+        <p>&copy; 2026 Pablo Merch&aacute;n-Rivera. All rights reserved.</p>
     </footer>
 </body>
 </html>
+
+
+

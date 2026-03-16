@@ -1,119 +1,104 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Publications - Pablo Merchán-Rivera</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <title>Publications - Pablo Merch&aacute;n-Rivera</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script defer src="scripts.js"></script>
-    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-X"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-XXXXXXXXX-X');
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-XXXXXXXXX-X');
     </script>
 </head>
-<body>
-<header>
+<body class="dark-mode">
+    <header>
         <h1>The Almanack of Pablo</h1>
+        <p class="site-tagline">AI Builder and Data Storyteller</p>
         <div class="theme-toggle">
-            <input type="checkbox" id="dark-mode-toggle" class="toggle-checkbox">
-            <label for="dark-mode-toggle" class="toggle-label">
-                <span class="toggle-icon sun">☀️</span>
-                <span class="toggle-icon moon">🌙</span>
-            </label>
+            <input type="checkbox" id="dark-mode-toggle" class="toggle-checkbox" aria-label="Toggle dark mode">
+            <label for="dark-mode-toggle" class="toggle-label"></label>
         </div>
-        <!-- <p>Publications</p> -->
     </header>
+
     <nav>
-        <div class="menu-icon" id="menu-icon">
-            &#9776; <!-- Hamburger icon -->
-        </div>
+        <button class="menu-icon" id="menu-icon" aria-label="Toggle navigation">&#9776;</button>
         <div class="nav-links" id="nav-links">
-            <a href="index.html">🏠 Home</a>
-            <!-- <a href="about.html">👨🏻‍💻 About Me</a> -->
-            <a href="publications.html" class="active">📚 Publications</a>
-            <a href="blog.html">✍🏻 Blog</a>
-            <a href="contact.html">📧 Contact</a>
+            <a href="index.html">Home</a>
+            <a href="publications.html" class="active">Publications</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact</a>
         </div>
     </nav>
+
     <div class="container">
         <section>
             <h2>Publications</h2>
-            <ul>
-                <br>
-                <li>
-                    <a href="https://doi.org/10.1007/s00477-025-03046-5" style="text-decoration: underline;">Engineered injection-extraction systems: sensitivity analysis and implications for groundwater remediation (2025)</a>
-                    <br>
-                    Ziliotto, F., <strong>Merchán-Rivera, P.</strong>, Basilio Hazas, M., Muhr, M., & Chiogna, G.
-                    <br>
-                    Stochastic Environmental Research and Risk Assessment. DOI: <a href="https://doi.org/10.1007/s00477-025-03046-5">10.1007/s00477-025-03046-5</a>
-                </li>
-                <br>
-                <li>
-                    <a href="https://doi.org/10.3390/w15020331" style="text-decoration: underline;">Presentation of DeMa (Decision Support Software and Database for Wellfield Management) and Its Application for the Wadi Al Arab Wellfield (2023)</a>
-                    <br>
-                    Alqadi, M., Al Dwairi, A., <strong>Merchán-Rivera, P.</strong>, & Chiogna, G.
-                    <br>
-                    Water. DOI: <a href="https://doi.org/10.3390/w15020331">10.3390/w15020331</a>
-                </li>
-                <br>
-                <li>
-                    <a href="https://link.springer.com/article/10.1007/s13137-022-00202-9" style="text-decoration: underline;">Propagation of hydropeaking waves in heterogeneous aquifers: effects on flow topology and uncertainty quantification (2022)</a>
-                    <br>
-                    <strong>Merchán-Rivera, P.</strong>, Basilio Hazas, M., Marcolini, G., & Chiogna, G.
-                    <br>
-                    GEM - International Journal on Geomathematics. DOI: <a href="https://doi.org/10.1007/s13137-022-00202-9">10.1007/s13137-022-00202-9</a>
-                </li>
-                <br>
-                <li>
-                    <a href="https://doi.org/10.1016/j.jhydrol.2022.127797" style="text-decoration: underline;">A Bayesian Framework To Assess And Create Risk Maps Of Groundwater Flooding (2022)</a>
-                    <br>
-                    <strong>Merchán-Rivera, P.</strong>, Geist, A., Disse, M., & Chiogna, G.
-                    <br>
-                    Journal of Hydrology. DOI: <a href="https://doi.org/10.1016/j.jhydrol.2022.127797">10.1016/j.jhydrol.2022.127797</a>
-                </li>
-                <br>
-                <li>
-                    <a href="https://doi.org/10.1029/2021WR029824" style="text-decoration: underline;">Identifying Stagnation Zones and Reverse Flow Caused by River‐Aquifer Interaction: An Approach Based on Polynomial Chaos Expansions (2021)</a>
-                    <br>
-                    <strong>Merchán-Rivera, P.</strong>, Wohlmuth, B., & Chiogna, G.
-                    <br>
-                    Water Resources Research. DOI: <a href="https://doi.org/10.1029/2021WR029824">10.1029/2021WR029824</a>
-                </li>
-                <br>
-                <li>
-                    <a href="https://doi.org/10.3850/IAHR-39WC252171192022884" style="text-decoration: underline;">Development of a User-Friendly Tool for Groundwater Wellfields Management (2022)</a>
-                    <br>
-                    Alqadi, M., Al Dwairi, A., Margane, A., Bueckner, F., Schneider, M., <strong>Merchan-Rivera, P.</strong>, & Chiogna G.
-                    <br>
-                    IAHR - 39th World Congress. DOI: <a href="https://doi.org/10.3850/IAHR-39WC252171192022884">10.3850/IAHR-39WC252171192022884</a>
-                </li>
-                <br>
-                <li>
-                    <a href="https://www.researchgate.net/publication/336810182_Surface_water_and_groundwater_interaction_during_flood_events_in_the_Alz_Valley_Numerical_modeling_and_solute_transport_simulations" style="text-decoration: underline;">Surface water and groundwater interaction during flood events in the Alz Valley: Numerical modeling and solute transport simulations (2018)</a>
-                    <br>
-                    <strong>Merchán-Rivera, P.</strong>, Chiogna, G., Disse, M., & Bhola, P.
-                    <br>
-                    El Agua Subterránea: "Recurso sin Fronteras". XIV Congreso Latinoamericano de Hidrogeología.
-                </li>
-                <br>
-                <li>
-                    <a href="https://www.researchgate.net/publication/320724650_Assessment_of_contamination_by_petroleum_hydrocarbons_from_oil_exploration_and_production_activities_in_Aguarico_Ecuador" style="text-decoration: underline;">Assessment of contamination by petroleum hydrocarbons from oil exploration and production activities in Aguarico, Ecuador (2017)</a>
-                    <br>
-                    <strong>Merchán-Rivera, P.</strong>, & Chiogna, G.
-                    <br>
-                    Technical University of Munich
-                </li>
-            </ul>
+            <p class="muted">Selected journal and conference work.</p>
+
+            <div class="publication-list">
+                <article class="publication-item">
+                    <p class="meta">2025 · Stochastic Environmental Research and Risk Assessment</p>
+                    <a class="publication-title" href="https://doi.org/10.1007/s00477-025-03046-5" target="_blank" rel="noopener noreferrer">Engineered injection-extraction systems: sensitivity analysis and implications for groundwater remediation</a>
+                    <p>Ziliotto, F., <strong>Merch&aacute;n-Rivera, P.</strong>, Basilio Hazas, M., Muhr, M., and Chiogna, G.</p>
+                </article>
+
+                <article class="publication-item">
+                    <p class="meta">2023 · Water</p>
+                    <a class="publication-title" href="https://doi.org/10.3390/w15020331" target="_blank" rel="noopener noreferrer">Presentation of DeMa (Decision Support Software and Database for Wellfield Management) and its application for the Wadi Al Arab wellfield</a>
+                    <p>Alqadi, M., Al Dwairi, A., <strong>Merch&aacute;n-Rivera, P.</strong>, and Chiogna, G.</p>
+                </article>
+
+                <article class="publication-item">
+                    <p class="meta">2022 · International Journal on Geomathematics</p>
+                    <a class="publication-title" href="https://doi.org/10.1007/s13137-022-00202-9" target="_blank" rel="noopener noreferrer">Propagation of hydropeaking waves in heterogeneous aquifers: effects on flow topology and uncertainty quantification</a>
+                    <p><strong>Merch&aacute;n-Rivera, P.</strong>, Basilio Hazas, M., Marcolini, G., and Chiogna, G.</p>
+                </article>
+
+                <article class="publication-item">
+                    <p class="meta">2022 · Journal of Hydrology</p>
+                    <a class="publication-title" href="https://doi.org/10.1016/j.jhydrol.2022.127797" target="_blank" rel="noopener noreferrer">A Bayesian framework to assess and create risk maps of groundwater flooding</a>
+                    <p><strong>Merch&aacute;n-Rivera, P.</strong>, Geist, A., Disse, M., and Chiogna, G.</p>
+                </article>
+
+                <article class="publication-item">
+                    <p class="meta">2021 · Water Resources Research</p>
+                    <a class="publication-title" href="https://doi.org/10.1029/2021WR029824" target="_blank" rel="noopener noreferrer">Identifying stagnation zones and reverse flow caused by river-aquifer interaction: an approach based on polynomial chaos expansions</a>
+                    <p><strong>Merch&aacute;n-Rivera, P.</strong>, Wohlmuth, B., and Chiogna, G.</p>
+                </article>
+
+                <article class="publication-item">
+                    <p class="meta">2022 · IAHR 39th World Congress</p>
+                    <a class="publication-title" href="https://doi.org/10.3850/IAHR-39WC252171192022884" target="_blank" rel="noopener noreferrer">Development of a user-friendly tool for groundwater wellfields management</a>
+                    <p>Alqadi, M., Al Dwairi, A., Margane, A., Bueckner, F., Schneider, M., <strong>Merchan-Rivera, P.</strong>, and Chiogna, G.</p>
+                </article>
+
+                <article class="publication-item">
+                    <p class="meta">2018 · XIV Congreso Latinoamericano de Hidrogeolog&iacute;a</p>
+                    <a class="publication-title" href="https://www.researchgate.net/publication/336810182_Surface_water_and_groundwater_interaction_during_flood_events_in_the_Alz_Valley_Numerical_modeling_and_solute_transport_simulations" target="_blank" rel="noopener noreferrer">Surface water and groundwater interaction during flood events in the Alz Valley: numerical modeling and solute transport simulations</a>
+                    <p><strong>Merch&aacute;n-Rivera, P.</strong>, Chiogna, G., Disse, M., and Bhola, P.</p>
+                </article>
+
+                <article class="publication-item">
+                    <p class="meta">2017 · Technical University of Munich</p>
+                    <a class="publication-title" href="https://www.researchgate.net/publication/320724650_Assessment_of_contamination_by_petroleum_hydrocarbons_from_oil_exploration_and_production_activities_in_Aguarico_Ecuador" target="_blank" rel="noopener noreferrer">Assessment of contamination by petroleum hydrocarbons from oil exploration and production activities in Aguarico, Ecuador</a>
+                    <p><strong>Merch&aacute;n-Rivera, P.</strong> and Chiogna, G.</p>
+                </article>
+            </div>
         </section>
     </div>
+
     <footer>
-        <p>&copy; 2026 Pablo Merchán-Rivera. All rights reserved.</p>
+        <p>&copy; 2026 Pablo Merch&aacute;n-Rivera. All rights reserved.</p>
     </footer>
 </body>
 </html>
+
+
+

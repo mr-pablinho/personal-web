@@ -1,28 +1,50 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
+    const body = document.body;
     const menuIcon = document.getElementById('menu-icon');
     const navLinks = document.getElementById('nav-links');
     const darkModeToggle = document.getElementById('dark-mode-toggle');
-    const body = document.body;
 
-    menuIcon.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
+    if (menuIcon && navLinks) {
+        const nav = menuIcon.closest('nav');
 
-    // Load initial mode based on preference
-    if (localStorage.getItem('dark-mode') === 'true') {
-        body.classList.add('dark-mode');
-        darkModeToggle.checked = true;
-    } else {
-        body.classList.add('light-mode');
+        menuIcon.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        navLinks.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        if (nav) {
+            document.addEventListener('click', (event) => {
+                if (!nav.contains(event.target)) {
+                    navLinks.classList.remove('active');
+                }
+            });
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                navLinks.classList.remove('active');
+            }
+        });
     }
 
-    darkModeToggle.addEventListener('change', () => {
-        body.classList.toggle('dark-mode');
-        body.classList.toggle('light-mode');
-        if (body.classList.contains('dark-mode')) {
+    if (darkModeToggle) {
+        const storedPreference = localStorage.getItem('dark-mode');
+        const darkModeEnabled = storedPreference === null ? true : storedPreference === 'true';
+        body.classList.toggle('dark-mode', darkModeEnabled);
+        darkModeToggle.checked = darkModeEnabled;
+
+        if (storedPreference === null) {
             localStorage.setItem('dark-mode', 'true');
-        } else {
-            localStorage.setItem('dark-mode', 'false');
         }
-    });
+
+        darkModeToggle.addEventListener('change', () => {
+            body.classList.toggle('dark-mode', darkModeToggle.checked);
+            localStorage.setItem('dark-mode', darkModeToggle.checked ? 'true' : 'false');
+        });
+    }
 });

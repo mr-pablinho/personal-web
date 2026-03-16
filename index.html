@@ -1,108 +1,88 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pablo Merchán-Rivera - Personal Webpage</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <title>Pablo Merch&aacute;n-Rivera - Personal Webpage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script defer src="scripts.js"></script>
-    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-X"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-XXXXXXXXX-X');
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-XXXXXXXXX-X');
     </script>
 </head>
-<body>
-<header>
+
+<body class="dark-mode">
+    <header>
         <h1>The Almanack of Pablo</h1>
+        <p class="site-tagline">AI Builder and Data Storyteller</p>
         <div class="theme-toggle">
-            <input type="checkbox" id="dark-mode-toggle" class="toggle-checkbox">
-            <label for="dark-mode-toggle" class="toggle-label">
-                <span class="toggle-icon sun">☀️</span>
-                <span class="toggle-icon moon">🌙</span>
-            </label>
+            <input type="checkbox" id="dark-mode-toggle" class="toggle-checkbox" aria-label="Toggle dark mode">
+            <label for="dark-mode-toggle" class="toggle-label"></label>
         </div>
     </header>
+
     <nav>
-        <div class="menu-icon" id="menu-icon">
-            &#9776; <!-- Hamburger icon -->
-        </div>
+        <button class="menu-icon" id="menu-icon" aria-label="Toggle navigation">&#9776;</button>
         <div class="nav-links" id="nav-links">
-            <a href="index.html" class="active">🏠 Home</a>
-            <!-- <a href="about.html">👨🏻‍💻 About Me</a> -->
-            <a href="publications.html">📚 Publications</a>
-            <a href="blog.html">✍🏻 Blog</a>
-            <a href="contact.html">📧 Contact</a>
+            <a href="index.html" class="active">Home</a>
+            <a href="publications.html">Publications</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact</a>
         </div>
     </nav>
+
     <div class="container">
         <section>
-            <h2>Welcome</h2>    
+            <h2>Welcome</h2>
+            <p>Hi, I am <strong>Dr. Pablo Merch&aacute;n-Rivera</strong>, an AI engineer based in Munich.</p>
+            <p>I am originally from Ecuador and hold a doctoral degree in engineering from the Technical University of
+                Munich (2022). Over the last three years, my main focus has been AI engineering: building reliable LLM
+                applications, evaluation workflows, and production-ready ML systems.</p>
+            <p>My background in numerical modeling, uncertainty quantification, and Bayesian methods continues to shape
+                how I design practical AI solutions for real-world problems.</p>
+        </section>
 
-            <p>Hi, I'm <strong> Dr. Pablo Merchán-Rivera </strong>.
-            <p>I'm originally from Ecuador and have been living in Germany for the past nine years. I describe myself professionally as an <strong>Engineer & Data Scientist</strong>.  
-                I hold a Doctoral Degree in engineering from the Technical University of Munich, which I obtained in 2022. I also got a master's degree in 
-                environmental engineering and renewable energies from the same university and an environmental engineering degree from the SEK International 
-                University. </p>
-
-                <p>I love doing science and using my skills to find practical solutions to environmental issues, both in academia and industry. 
-                My work has focused on solving problems in fluid dynamics, risk analysis and renewable energy systems using different techniques such as 
-                numerical modelling, polynomial chaos expansions, machine learning, and Bayesian statistics, among others. 
-                I am currently working as Senior Data Scientist at <a href="https://www.ampero.ai/">Ampero</a> in Munich, where I explore 
-                AI solutions in the renewable energy sector.</p>
-            <p>
-                </p>
-
-            <p><strong>A few interesting things about me:</strong></p>
-            <p>
-                🐊 I've caught crocodiles with my own hands (for their own good, of course, as part of a research project).<br>
-                🎸 I can play the guitar, sing, and dance salsa, all in a fairly decent manner.<br>
-                🎮 I enjoy playing video games. I don't play as much as I would like, and I'm fairly bad at them.<br>
-                📘 Learning is the greatest motivation in my life. When I find time, I consume books, podcasts, and online courses to learn new things.<br>
-                ⚽ I love watching and playing football. At some point, I plan to create an app that analyzes football players' statistics.<br>
-                🎨 I pay close attention to detail in the graphical design of everything I do, from simple plots to presentations, from my notes in my notebooks to the theme of my IDE. It's often a curse, as perfectionism often is.<br>
-                ☕ Coffee is my fuel. I love trying different types of coffee, and sitting in a coffee shop is one of my favorite things to do.<br>
-                👨🏻‍🏫 I also like teaching. I gave lectures on numerical modeling, uncertainty quantification, and data science at the Technical University of Munich, as well as in different workshops and summer schools in Ecuador.
-            </p>
-            <p>I invite you to explore my website to learn more about my research, publications, and projects.
-                Feel free to <a href="contact.html">reach out</a> if you have any questions, inquiries or just want to connect.</p>
+        <section>
+            <h2>A Few Personal Notes</h2>
+            <ul class="simple-list">
+                <li>I once caught crocodiles by hand during a field research project.</li>
+                <li>I play guitar, sing, and dance salsa.</li>
+                <li>I enjoy video games, even if I play less than I would like.</li>
+                <li>Learning drives me: books, podcasts, and online courses are a constant part of my routine.</li>
+                <li>I follow football closely and would like to build a player-statistics app.</li>
+                <li>I care deeply about visual quality, from plots and slides to notebooks and IDE themes.</li>
+                <li>Coffee is my daily fuel, and coffee shops are one of my favorite places to work and think.</li>
+                <li>I enjoy teaching and have lectured on numerical modeling, uncertainty quantification, and data
+                    science at TUM and in workshops in Ecuador.</li>
+            </ul>
         </section>
 
         <section>
             <h2>Featured News</h2>
-            <div class="project">
-                <h3>Latest Scientific Publication</h3>
-                <p>Check out my latest publication on engineered injection-extraction systems: a method to speed up groundwater cleanup by optimizing well operations and understanding key factors through sensitivity analysis.</p>
-                <ul>
-                        <li>
-                            <a href="https://doi.org/10.1007/s00477-025-03046-5" style="text-decoration: underline;">Engineered injection-extraction systems: sensitivity analysis and implications for groundwater remediation (2025)</a>
-                            <br>
-                            Ziliotto, F., <strong>Merchán-Rivera, P.</strong>, Basilio Hazas, M., Muhr, M., & Chiogna, G.
-                            <br>
-                            Stochastic Environmental Research and Risk Assessment. DOI: <a href="https://doi.org/10.1007/s00477-025-03046-5">10.1007/s00477-025-03046-5</a>
-                        </li>
-                </ul>
-            </div>
-            <!-- <div class="project">
-                <h3>Featured Side Projects</h3>
-                <ul>
-                    <li>
-                        Training two tailored ChatGPT assistants to support people in applying uncertainty quantification techniques and use MODFLOW.
-                        <ul>
-                            <li><a href="https://chatgpt.com/g/g-4jiHx7hsu-uncertainty-quantification-expert">Uncertainty Quantificaiton Expert</a></li>
-                            <li><a href="https://chatgpt.com/g/g-ZBqV6GymF-modflow-expert">MODFLOW Expert</a></li>
-                        </ul>
-                </ul>
-            </div> -->
+            <article class="card">
+                <p class="meta">Latest publication</p>
+                <h3>Engineered injection-extraction systems (2025)</h3>
+                <p>This paper studies how sensitivity analysis can accelerate groundwater remediation by improving well
+                    operation strategies.</p>
+                <p><a href="https://doi.org/10.1007/s00477-025-03046-5" target="_blank" rel="noopener noreferrer">Read
+                        publication (DOI: 10.1007/s00477-025-03046-5)</a></p>
+            </article>
         </section>
     </div>
+
     <footer>
-        <p>&copy; 2026 Pablo Merchán-Rivera. All rights reserved.</p>
+        <p>&copy; 2026 Pablo Merch&aacute;n-Rivera. All rights reserved.</p>
     </footer>
 </body>
+
 </html>

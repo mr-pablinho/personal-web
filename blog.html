@@ -1,98 +1,70 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Pablo Merchán-Rivera</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=DM+Sans:wght@400;700&display=swap"
-        rel="stylesheet">
+    <title>Blog - Pablo Merch&aacute;n-Rivera</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script defer src="scripts.js"></script>
 </head>
-
-<body>
+<body class="dark-mode">
     <header>
         <h1>The Almanack of Pablo</h1>
+        <p class="site-tagline">AI Builder and Data Storyteller</p>
         <div class="theme-toggle">
-            <input type="checkbox" id="dark-mode-toggle" class="toggle-checkbox">
-            <label for="dark-mode-toggle" class="toggle-label">
-                <span class="toggle-icon sun">☀️</span>
-                <span class="toggle-icon moon">🌙</span>
-            </label>
+            <input type="checkbox" id="dark-mode-toggle" class="toggle-checkbox" aria-label="Toggle dark mode">
+            <label for="dark-mode-toggle" class="toggle-label"></label>
         </div>
     </header>
+
     <nav>
-        <div class="menu-icon" id="menu-icon">
-            &#9776; <!-- Hamburger icon -->
-        </div>
+        <button class="menu-icon" id="menu-icon" aria-label="Toggle navigation">&#9776;</button>
         <div class="nav-links" id="nav-links">
-            <a href="index.html">🏠 Home</a>
-            <!-- <a href="about.html">👨🏻‍💻 About Me</a> -->
-            <a href="publications.html">📚 Publications</a>
-            <a href="blog.html" class="active">✍🏻 Blog</a>
-            <a href="contact.html">📧 Contact</a>
+            <a href="index.html">Home</a>
+            <a href="publications.html">Publications</a>
+            <a href="blog.html" class="active">Blog</a>
+            <a href="contact.html">Contact</a>
         </div>
     </nav>
+
     <div class="container">
         <section>
             <h2>Blog</h2>
-            <p></p>
+            <p class="muted">Notes on AI systems, environmental modeling, and applied data science.</p>
 
-
-            <!-- Blog Entry 1 -->
-            <!-- <article class="blog-entry"> -->
-            <!-- <h3><a href="posts/post1.html">Understanding Data Science: A Beginner's Guide</a></h3> -->
-            <!-- <p class="date">May 26, 2026</p> -->
-            <!-- <p>A brief guide to understanding the basics of data science. <a href="posts/post1.html">Read more...</a></p> -->
-            <!-- </article> -->
-
-            <!-- Blog Entry 2 -->
-            <!-- <article class="blog-entry"> -->
-            <!-- <h3><a href="posts/post2.html">My Journey in Machine Learning</a></h3> -->
-            <!-- <p class="date">April 15, 2026</p> -->
-            <!-- <p>Sharing my experiences and insights in the field of machine learning. <a href="posts/post2.html">Read more...</a></p> -->
-            <!-- </article> -->
-
-            <!-- Blog Entry 3 -->
-            <!-- <article class="blog-entry"> -->
-            <!-- <h3><a href="posts/post3.html">Exploring Big Data Technologies</a></h3> -->
-            <!-- <p class="date">June 10, 2026</p> -->
-            <!-- <p>An exploration of the tools and technologies used in big data. <a href="posts/post3.html">Read more...</a></p> -->
-            <!-- </article> -->
-
-             <!-- LLM Evaluation Post -->
-             <article class="blog-entry">
-                 <h3><a href="posts/llm-evaluation.html">Navigating the Chaos: A Pragmatic Approach to LLM Evaluation</a></h3>
-                 <p class="date">November 05, 2025</p>
-                 <p>The explosion of Large Language Models (LLMs) has fundamentally shifted how we build software. However, building a production-ready system that is robust, reliable, and safe is incredibly difficult. The primary bottleneck? Evaluation.</p>
-             </article>
-
-            <!-- Add more blog entries here -->
-
-             <!-- Groundwater Flooding Post -->
-             <article class="blog-entry">
-                 <h3><a href="posts/groundwater-flooding.html">Flooding from Below: Using Data to Map a Hidden Risk</a></h3>
-                 <p class="date">March 14, 2026</p>
-                 <p>When most people think about floods, they imagine rivers overflowing or streets filling up after heavy rain. But flooding can also come from below. In this study, I looked at groundwater flooding and used statistical inference to map that hidden risk.</p>
-             </article>
-
-            <!-- Medium Article -->
             <article class="blog-entry">
-                <h3><a
-                        href="https://medium.com/data-science/building-a-rag-pipeline-with-mongodb-vector-search-for-personalized-movie-picks-46a58a2aaac9">Building
-                        a RAG Pipeline with MongoDB: Vector Search for Personalized Picks</a></h3>
-                <p class="date">Aug 1, 2023</p>
-                <p>This article explores the construction of a recommendations system using a Retrieval-Augmented
-                    Generation (RAG) pipeline. The objective is to learn how to harness the power of MongoDB's vector
-                    search capabilities to create a system that understands the nuances of your preferences.</p>
+                <p class="meta">March 14, 2026 · Research Note</p>
+                <h3><a href="posts/groundwater-flooding.html">Flooding from Below: Using Data to Map a Hidden Risk</a></h3>
+                <p>A practical look at groundwater flooding in Bavaria and how Bayesian inference can make uncertainty visible in risk maps.</p>
             </article>
+
+            <article class="blog-entry">
+                <p class="meta">November 5, 2025 · AI Engineering</p>
+                <h3><a href="posts/llm-evaluation.html">Navigating the Chaos: A Pragmatic Approach to LLM Evaluation</a></h3>
+                <p>A concise framework for evaluating LLM systems using deterministic checks, LLM judges, and human review loops.</p>
+            </article>
+
+            <article class="blog-entry">
+                <p class="meta">August 1, 2023 · Medium</p>
+                <h3><a href="https://medium.com/data-science/building-a-rag-pipeline-with-mongodb-vector-search-for-personalized-movie-picks-46a58a2aaac9" target="_blank" rel="noopener noreferrer">Building a RAG Pipeline with MongoDB: Vector Search for Personalized Picks</a></h3>
+                <p>An applied tutorial on creating a recommendation workflow with retrieval-augmented generation and vector search.</p>
+            </article>
+
+            <div class="pager">
+                <span class="page-current">Page 1</span>
+                <span>of 1</span>
+            </div>
         </section>
     </div>
+
     <footer>
-        <p>&copy; 2026 Pablo Merchán-Rivera. All rights reserved.</p>
+        <p>&copy; 2026 Pablo Merch&aacute;n-Rivera. All rights reserved.</p>
     </footer>
 </body>
-
 </html>
+
+
+

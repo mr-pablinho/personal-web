@@ -1,102 +1,50 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About Me - Pablo Merchán-Rivera</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=DM+Sans:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Pablo Merch&aacute;n-Rivera</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
     <script defer src="scripts.js"></script>
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-X"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "UA-XXXXXXXXX-X");
-    </script>
-  </head>
-  <body>
-<header>
-      <h1>The Almanack of Pablo</h1>
-      <div class="theme-toggle">
-        <input type="checkbox" id="dark-mode-toggle" class="toggle-checkbox">
-        <label for="dark-mode-toggle" class="toggle-label">
-          <span class="toggle-icon sun">☀️</span>
-          <span class="toggle-icon moon">🌙</span>
-        </label>
-      </div>
+</head>
+<body class="dark-mode">
+    <header>
+        <h1>The Almanack of Pablo</h1>
+        <p class="site-tagline">AI Builder and Data Storyteller</p>
+        <div class="theme-toggle">
+            <input type="checkbox" id="dark-mode-toggle" class="toggle-checkbox" aria-label="Toggle dark mode">
+            <label for="dark-mode-toggle" class="toggle-label"></label>
+        </div>
     </header>
+
     <nav>
-      <div class="menu-icon" id="menu-icon">&#9776;</div>
-      <div class="nav-links" id="nav-links">
-        <a href="index.html">🏠 Home</a>
-        <!-- <a href="about.html" class="active">👨🏻‍💻 About Me</a> -->
-        <a href="publications.html">📚 Publications</a>
-        <a href="blog.html">✍🏻 Blog</a>
-        <a href="contact.html">📧 Contact</a>
-      </div>
+        <button class="menu-icon" id="menu-icon" aria-label="Toggle navigation">&#9776;</button>
+        <div class="nav-links" id="nav-links">
+            <a href="index.html">Home</a>
+            <a href="publications.html">Publications</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact</a>
+        </div>
     </nav>
+
     <div class="container">
-      <section>
-        <h2>About Me</h2>
-        <p>
-          Hi, I'm Pablo Merchán-Rivera. Professionally, I describe myself as an
-          engineer and data scientist.
-        </p>
-        <p>
-          I hold a doctoral degree in engineering from the Technical University
-          of Munich.
-        </p>
-        <p>
-          I love doing science and using my skills to find practical solutions
-          to <strong>complex challenges</strong>, both in academia and industry.
-        </p>
-        <p>
-          I'm originally from Ecuador and have been living in Germany for the
-          past nine years.
-        </p>
-        <p>
-          I'm originally from Ecuador and have been living in Germany for the
-          past nine years.
-        </p>
-        <p>A few interesting things about me:</p>
-        <ul>
-          <li>
-            🐊 I've caught crocodiles with my own hands (for their own good, of
-            course, as part of a research project).
-          </li>
-          <li>
-            🎸 I can play the guitar, sing, and dance salsa, all in a fairly
-            decent manner.
-          </li>
-          <li>
-            ⚽ I love watching and playing football. At some point, I plan to
-            create an app that analyzes football players' statistics.
-          </li>
-          <li>
-            🎨 I pay close attention to detail in the graphical design of
-            everything I do, from simple plots to presentations, from my
-            notebook to the theme of my IDE. It's often a curse, as
-            perfectionism often is.
-          </li>
-        </ul>
-        <p>
-          I invite you to explore my website to learn more about my research,
-          publications, and projects.
-        </p>
-      </section>
+        <section>
+            <h2>About</h2>
+            <p class="lede">For the last three years, I have focused primarily on AI engineering and reliable ML product delivery.</p>
+            <p>My work centers on LLM-based systems, evaluation pipelines, retrieval workflows, and pragmatic deployment patterns for production environments.</p>
+            <p>I also teach and collaborate on numerical modeling, uncertainty quantification, and applied data science topics.</p>
+            <p>Outside work, I enjoy music, football, and continuous learning through books, podcasts, and technical courses.</p>
+        </section>
     </div>
+
     <footer>
-      <p>&copy; 2026 Pablo Merchán-Rivera. All rights reserved.</p>
+        <p>&copy; 2026 Pablo Merch&aacute;n-Rivera. All rights reserved.</p>
     </footer>
-  </body>
+</body>
 </html>
+
+
+
