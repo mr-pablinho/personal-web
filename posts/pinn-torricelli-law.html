@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics-Informed Neural Networks with Torricelli's Law - Pablo Merch&aacute;n-Rivera</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-dracula.min.css">
+    <script defer src="../scripts.js"></script>
+</head>
+
+<body class="dark-mode">
+    <header>
+        <h1><a href="../index.html" class="brand-link">The Almanack of Pablo</a></h1>
+        <p class="site-tagline">AI Builder and Data Storyteller</p>
+    </header>
+
+    <nav>
+        <button class="menu-icon" id="menu-icon" aria-label="Toggle navigation">&#9776;</button>
+        <div class="nav-links" id="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../publications.html">Publications</a>
+            <a href="../resume.html">Resume</a>
+            <a href="../blog.html" class="active">Blog</a>
+            <a href="../contact.html">Contact</a>
+        </div>
+
+        <div class="header-controls">
+            <a href="../es/blog.html" class="lang-toggle" aria-label="Switch to Spanish">ES</a>
+            <div class="theme-toggle">
+                <input type="checkbox" id="dark-mode-toggle" class="toggle-checkbox" aria-label="Toggle dark mode">
+                <label for="dark-mode-toggle" class="toggle-label"></label>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section>
+            <h2>Physics-Informed Neural Networks with Torricelli's Law</h2>
+            <p class="meta">March 13, 2025</p>
+
+            <p>This post is written as a short lecture note. The goal is to show how a PINN works without rushing
+                through details or hiding the physics behind a large code block.</p>
+
+            <p>Our example problem is a draining water tank. We want a neural network that predicts water height
+                <code>h(t)</code> over time. The physics is Torricelli's law:
+            </p>
+
+            <pre><code class="language-python">dh_dt = -k * torch.sqrt(h)</code></pre>
+
+            <p>The challenge is realistic. We often have very little data, sometimes only an initial condition, but we
+                still need physically valid predictions.</p>
+
+            <h3>Core PINN Idea</h3>
+            <p>A PINN changes the training objective. Instead of minimizing only data error, we also penalize physics
+                violations.</p>
+
+            <pre><code class="language-python">loss = lambda_data * data_loss + lambda_phys * physics_loss</code></pre>
+
+            <p><code>L_data</code> anchors known observations. <code>L_phys</code> penalizes the ODE residual over
+                collocation points in time. Automatic differentiation gives us <code>dh/dt</code> directly from the
+                network.</p>
+
+            <h3>Implementation</h3>
+
+            <p>We keep dependencies minimal and set a seed so your run is repeatable.</p>
+
+            <pre><code class="language-python">import numpy as np
+import torch
+import torch.nn as nn
+import matplotlib.pyplot as plt
+
+
+def set_seed(seed=42):
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+</code></pre>
+
+            <p>This is only for validation. The PINN does not use it during training.</p>
+
+            <pre><code class="language-python">def analytic_solution(t, h0, k):
+    """
+    h(t) = (sqrt(h0) - 0.5 * k * t)^2 for t <= 2 * sqrt(h0) / k
+    h(t) = 0 after full drainage
+    """
+    term = np.sqrt(h0) - 0.5 * k * t
+    return np.maximum(term, 0.0) ** 2
+</code></pre>
+
+            <p>Input is time. Output is water level. I use <code>Softplus</code> at the end to keep height non
+                negative.</p>
+
+            <pre><code class="language-python">class TankPINN(nn.Module):
+    def __init__(self, hidden_size=32, hidden_layers=3):
+        super().__init__()
+        layers = [nn.Linear(1, hidden_size), nn.Tanh()]
+
+        for _ in range(hidden_layers - 1):
+            layers.extend([nn.Linear(hidden_size, hidden_size), nn.Tanh()])
+
+        layers.append(nn.Linear(hidden_size, 1))
+        self.network = nn.Sequential(*layers)
+        self.positive_output = nn.Softplus(beta=5.0)
+
+    def forward(self, t):
+        raw = self.network(t)
+        return self.positive_output(raw)
+</code></pre>
+
+            <p>This is the core of the method. We compute <code>dh/dt</code> with autograd and penalize ODE mismatch.
+            </p>
+
+            <pre><code class="language-python">def compute_physics_residual(model, t_phys, k):
+    h = model(t_phys)
+    dh_dt = torch.autograd.grad(
+        outputs=h,
+        inputs=t_phys,
+        grad_outputs=torch.ones_like(h),
+        create_graph=True
+    )[0]
+    residual = dh_dt + k * torch.sqrt(torch.clamp(h, min=1e-8))
+    return residual
+
+
+def pinn_loss(model, t0, h0, t_phys, k, lambda_data=10.0, lambda_phys=1.0):
+    h0_pred = model(t0)
+    data_loss = torch.mean((h0_pred - h0) ** 2)
+
+    residual = compute_physics_residual(model, t_phys, k)
+    physics_loss = torch.mean(residual ** 2)
+
+    total_loss = lambda_data * data_loss + lambda_phys * physics_loss
+    return total_loss, data_loss, physics_loss
+</code></pre>
+
+            <p>We evaluate physics on collocation points across time. That is how the model learns behavior between
+                sparse observations.</p>
+
+            <pre><code class="language-python">def train(model, optimizer, t0, h0, t_phys_base, k, epochs=4000):
+    history = {"total": [], "data": [], "physics": []}
+
+    for epoch in range(1, epochs + 1):
+        optimizer.zero_grad()
+
+        t_phys = t_phys_base.clone().detach().requires_grad_(True)
+        total_loss, data_loss, physics_loss = pinn_loss(
+            model=model,
+            t0=t0,
+            h0=h0,
+            t_phys=t_phys,
+            k=k
+        )
+
+        total_loss.backward()
+        optimizer.step()
+
+        history["total"].append(total_loss.item())
+        history["data"].append(data_loss.item())
+        history["physics"].append(physics_loss.item())
+
+        if epoch % 500 == 0:
+            print(
+                f"Epoch {epoch:4d} | Total: {total_loss.item():.4e} | "
+                f"Data: {data_loss.item():.4e} | Physics: {physics_loss.item():.4e}"
+            )
+
+    return history
+</code></pre>
+
+            <p>This block defines the constants, trains the PINN, and compares predictions with the analytic curve.
+            </p>
+
+            <pre><code class="language-python">def main():
+    set_seed(7)
+
+    h0_value = 1.0
+    k_value = 0.5
+    t_max = 4.0
+
+    t0 = torch.tensor([[0.0]], dtype=torch.float32)
+    h0 = torch.tensor([[h0_value]], dtype=torch.float32)
+
+    n_phys = 100
+    t_phys_base = torch.linspace(0.0, t_max, n_phys).view(-1, 1)
+
+    model = TankPINN(hidden_size=32, hidden_layers=3)
+    optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+
+    history = train(
+        model=model,
+        optimizer=optimizer,
+        t0=t0,
+        h0=h0,
+        t_phys_base=t_phys_base,
+        k=k_value,
+        epochs=4000
+    )
+
+    t_plot = np.linspace(0.0, t_max, 300).reshape(-1, 1)
+    t_plot_tensor = torch.tensor(t_plot, dtype=torch.float32)
+
+    with torch.no_grad():
+        h_pred = model(t_plot_tensor).cpu().numpy().flatten()
+
+    h_true = analytic_solution(t_plot.flatten(), h0_value, k_value)
+
+    plt.figure(figsize=(8, 4.5))
+    plt.plot(t_plot, h_true, label="Analytic solution", linewidth=2)
+    plt.plot(t_plot, h_pred, "--", label="PINN prediction", linewidth=2)
+    plt.scatter([0], [h0_value], color="black", zorder=5, label="Initial condition")
+    plt.xlabel("Time t")
+    plt.ylabel("Water level h(t)")
+    plt.title("PINN for Torricelli's Law")
+    plt.grid(alpha=0.3)
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
+
+    plt.figure(figsize=(8, 4.5))
+    plt.semilogy(history["total"], label="Total loss")
+    plt.semilogy(history["data"], label="Data loss")
+    plt.semilogy(history["physics"], label="Physics loss")
+    plt.xlabel("Epoch")
+    plt.ylabel("Loss")
+    plt.title("PINN training losses")
+    plt.grid(alpha=0.3)
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
+
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+
+            <h3>What to Observe When You Run It</h3>
+            <p>Watch two things during training. First, data loss should drop near zero because the initial condition is
+                easy to match. Second, physics loss should decrease steadily as the network learns the correct shape of
+                the trajectory.</p>
+
+            <p>If the curve looks noisy, increase collocation points or train longer. If the network respects physics
+                but misses known data, increase <code>lambda_data</code>. If it fits data and violates the ODE,
+                increase <code>lambda_phys</code>.</p>
+
+            <h3>Takeaway</h3>
+            <p>A PINN is not a new network architecture. It is a training strategy that puts physical law inside the
+                objective. For low data scientific problems, that change is often enough to turn a fragile fit into a
+                reliable model.</p>
+
+            <a href="../blog.html" class="back-button">&larr; Back to Blog</a>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Pablo Merch&aacute;n-Rivera. All rights reserved.</p>
+    </footer>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>

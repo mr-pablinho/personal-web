@@ -523,6 +523,11 @@ pre {
     line-height: 1.6;
 }
 
+/* Prism theme styles load after this file, so use higher specificity for spacing. */
+body pre[class*="language-"] {
+    margin: 1rem 0 1.45rem;
+}
+
 code {
     font-family: 'JetBrains Mono', monospace;
 }
