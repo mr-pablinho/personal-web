@@ -1,23 +1,23 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navigating the Chaos: A Pragmatic Approach to LLM Evaluation - Pablo Merch&aacute;n-Rivera</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../styles.css">
     <script defer src="../scripts.js"></script>
 </head>
+
 <body class="dark-mode">
     <header>
         <h1><a href="../index.html" class="brand-link">The Almanack of Pablo</a></h1>
         <p class="site-tagline">AI Builder and Data Storyteller</p>
-        <div class="theme-toggle">
-            <input type="checkbox" id="dark-mode-toggle" class="toggle-checkbox" aria-label="Toggle dark mode">
-            <label for="dark-mode-toggle" class="toggle-label"></label>
-        </div>
     </header>
 
     <nav>
@@ -25,32 +25,113 @@
         <div class="nav-links" id="nav-links">
             <a href="../index.html">Home</a>
             <a href="../publications.html">Publications</a>
+            <a href="../resume.html">Resume</a>
             <a href="../blog.html" class="active">Blog</a>
             <a href="../contact.html">Contact</a>
         </div>
+        
+        <div class="header-controls">
+            <a href="../es/blog.html" class="lang-toggle" aria-label="Switch to Spanish">ES</a>
+            <div class="theme-toggle">
+            <input type="checkbox" id="dark-mode-toggle" class="toggle-checkbox" aria-label="Toggle dark mode">
+            <label for="dark-mode-toggle" class="toggle-label"></label>
+        </div>
+    </div>
     </nav>
 
     <div class="container">
         <section>
             <h2>Navigating the Chaos: A Pragmatic Approach to LLM Evaluation</h2>
-            <p class="meta">November 5, 2025</p>
+            <p class="meta">December 26, 2025</p>
 
-            <p>The explosion of large language models has fundamentally shifted how we build software. Building a prototype that works most of the time is easy; building a production-ready system that is robust, reliable, and safe is not. The bottleneck is evaluation.</p>
+            <p>This post is about evaluating production LLM applications such as support copilots, RAG assistants,
+                document extraction agents, and workflow automations that users depend on every day.</p>
 
-            <p>Traditional machine learning gives us clear metrics such as accuracy, F1 score, or RMSE. Generative text systems add subjectivity: how do we measure helpfulness, correctness, style, and risk in one framework?</p>
+            <p>The core problem is simple to describe and hard to solve. Offline tests can look good while production
+                quality drops fast. You can ship with a high pass rate and still get brittle behavior under real user
+                requests.</p>
 
-            <h3>The Evaluation Triad</h3>
-            <p>In practice, relying on one method is fragile. A stronger baseline comes from combining three layers:</p>
+            <p>This happens because LLM applications are pipelines, not single models. Retrieval, prompting, tool calls,
+                post processing, and safety checks all affect the final answer. Each step can fail in a different way,
+                so evaluation must happen at component level and end to end level.</p>
+
+            <p>A common example is a policy assistant that passes synthetic tests but fails on real documents with mixed
+                versions. Another example is a document parser that works on clean PDFs but breaks when tables are
+                merged or scanned at low quality.</p>
+
+            <h3>Evaluation Contract First</h3>
+            <p>I start by defining a strict contract for each test case. This keeps runs reproducible and helps isolate
+                failures.</p>
+            <pre><code class="language-json">{
+  "id": "case_0127",
+  "task_type": "rag_qa",
+  "user_query": "What are the refund conditions?",
+  "gold_answer": "...",
+  "gold_citations": ["doc_44#p2", "doc_11#p5"],
+  "required_tools": ["search_policy"],
+  "risk_level": "medium"
+}</code></pre>
+            <p>With this structure, every run can produce comparable artifacts such as final answer, retrieved chunks,
+                tool traces, and judge output.</p>
+
+            <h3>Three Layer Evaluation Stack</h3>
             <ol>
-                <li><strong>Deterministic metrics:</strong> Validate what can be validated. For structured output, enforce schema checks. For latent classification tasks, report standard metrics.</li>
-                <li><strong>LLM-as-a-judge:</strong> Use a stronger model to score outputs against a rubric. This scales quickly but still requires careful judge prompt design and calibration.</li>
-                <li><strong>Human review:</strong> Keep a gold set and periodically audit edge cases, safety constraints, and domain-specific quality that automated checks miss.</li>
+                <li><strong>Deterministic checks.</strong> Validate schema, required fields, citation existence, tool
+                    usage constraints, and policy rules.</li>
+                <li><strong>Model based judging.</strong> Use a fixed judge prompt with explicit scoring dimensions and
+                    short reasons per score.</li>
+                <li><strong>Human audit.</strong> Review high risk and high disagreement cases to catch subtle quality
+                    regressions.</li>
             </ol>
+            <p>For example, in an extraction task I hard fail any response that misses mandatory keys. In a RAG answer
+                task I hard fail any citation that does not map to retrieved context.</p>
 
-            <h3>RAG Raises the Bar</h3>
-            <p>With retrieval-augmented generation, quality depends on both retrieval and generation. If retrieved context is weak, the final answer degrades regardless of prompt quality. That means evaluation must include intermediate checks such as context relevance and groundedness.</p>
+            <h3>Scoring Dimensions I Actually Use</h3>
+            <ul class="compact-list">
+                <li>Correctness: Is the answer factually aligned with source context.</li>
+                <li>Groundedness: Are claims supported by retrieved evidence.</li>
+                <li>Completeness: Are key parts of the question fully answered.</li>
+                <li>Instruction fidelity: Did the response follow format and constraints.</li>
+                <li>Safety: Does the output avoid harmful or policy violating content.</li>
+            </ul>
+            <p>I report per dimension distributions, not only a global mean. Mean score can look stable while failure
+                clusters grow in one dimension.</p>
 
-            <p>Evaluation is not an afterthought. It is the core loop of LLM engineering. If you cannot measure behavior, you cannot improve it with confidence.</p>
+            <h3>RAG Specific Metrics</h3>
+            <p>For RAG systems, retrieval is evaluated separately from generation. This avoids wasting time tuning
+                prompts when the real issue is poor context recall.</p>
+            <ul class="compact-list">
+                <li>Recall at k for whether gold evidence appears in retrieved chunks.</li>
+                <li>Context relevance score for query chunk alignment.</li>
+                <li>Citation precision for whether cited passages really support claims.</li>
+                <li>Answer groundedness to detect fluent hallucinations.</li>
+            </ul>
+            <p>In practice, groundedness catches many polished but unsupported answers. This is especially common when
+                retrieval recall is low and the model still responds with high confidence.</p>
+
+            <h3>Release Gates</h3>
+            <p>Every candidate release must pass explicit quality gates. Example gates include minimum correctness,
+                minimum groundedness, no increase in high risk failures, and bounded latency increase versus previous
+                baseline.</p>
+            <pre><code class="language-json">{
+  "min_correctness": 0.85,
+  "min_groundedness": 0.9,
+  "max_high_risk_failure_rate": 0.01,
+  "max_p95_latency_increase_pct": 15
+}</code></pre>
+            <p>I also track cost per request and failure rate together with quality. A small quality gain is not useful
+                if cost and latency explode.</p>
+
+            <h3>Failure Triage Loop</h3>
+            <p>After each run, I classify failures into a compact taxonomy. Missing context, wrong tool selection, weak
+                reasoning over valid context, and unsafe output are usually enough categories to start. Then each
+                category maps to one owner action such as retriever tuning, tool policy update, prompt constraints, or
+                guardrail refinement.</p>
+            <p>This loop is what makes progress predictable. Build, measure, inspect, fix one class of errors, and run
+                again.</p>
+
+            <p>The main takeaway is that evaluation should be treated like product infrastructure. Clear measurement
+                creates clear decisions, and clear decisions create reliable systems.</p>
 
             <a href="../blog.html" class="back-button">&larr; Back to Blog</a>
         </section>
@@ -60,6 +141,7 @@
         <p>&copy; 2026 Pablo Merch&aacute;n-Rivera. All rights reserved.</p>
     </footer>
 </body>
+
 </html>
 
 

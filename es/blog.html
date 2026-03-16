@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Pablo Merch&aacute;n-Rivera</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <script defer src="../scripts.js"></script>
+</head>
+<body class="dark-mode">
+    <header>
+        <h1><a href="index.html" class="brand-link">The Almanack of Pablo</a></h1>
+        <p class="site-tagline">Constructor de IA y narrador con datos</p>
+    </header>
+
+    <nav>
+        <button class="menu-icon" id="menu-icon" aria-label="Mostrar navegaci&oacute;n">&#9776;</button>
+        <div class="nav-links" id="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="publications.html">Publicaciones</a>
+            <a href="resume.html">Curr&iacute;culum</a>
+            <a href="blog.html" class="active">Blog</a>
+            <a href="contact.html">Contacto</a>
+        </div>
+        
+        <div class="header-controls">
+            <a href="../blog.html" class="lang-toggle" aria-label="Switch to English">EN</a>
+            <div class="theme-toggle">
+            <input type="checkbox" id="dark-mode-toggle" class="toggle-checkbox" aria-label="Cambiar modo oscuro">
+            <label for="dark-mode-toggle" class="toggle-label"></label>
+        </div>
+    </div>
+    </nav>
+
+    <div class="container">
+        <section>
+            <h2>Blog</h2>
+            <p class="muted">Notas sobre sistemas de IA, modelaci&oacute;n ambiental y ciencia de datos aplicada.</p>
+
+            <article class="blog-entry">
+                <p class="meta">26 diciembre 2025 · Ingenier&iacute;a de IA</p>
+                <h3><a href="../posts/llm-evaluation.html">Navegando el caos: un enfoque pragm&aacute;tico para evaluar sistemas LLM</a></h3>
+                <p>Marco t&eacute;cnico para evaluar sistemas LLM con verificaciones deterministas, jueces basados en modelo, m&eacute;tricas de retrieval y revisi&oacute;n humana.</p>
+            </article>
+
+            <article class="blog-entry">
+                <p class="meta">1 agosto 2023 · Medium</p>
+                <h3><a href="https://medium.com/data-science/building-a-rag-pipeline-with-mongodb-vector-search-for-personalized-movie-picks-46a58a2aaac9" target="_blank" rel="noopener noreferrer">Construcci&oacute;n de un pipeline RAG con MongoDB para recomendaciones personalizadas</a></h3>
+                <p>Tutorial aplicado para crear un flujo de recomendaci&oacute;n con retrieval-augmented generation y b&uacute;squeda vectorial.</p>
+            </article>
+
+            <article class="blog-entry">
+                <p class="meta">Agosto 2022 · Nota de investigaci&oacute;n</p>
+                <h3><a href="../posts/groundwater-flooding.html">Inundaciones desde abajo: uso de datos para mapear un riesgo oculto</a></h3>
+                <p>Una mirada pr&aacute;ctica a las inundaciones por aguas subterr&aacute;neas en Baviera y c&oacute;mo la inferencia bayesiana hace visible la incertidumbre en mapas de riesgo.</p>
+            </article>
+
+            <div class="pager">
+                <span class="page-current">P&aacute;gina 1</span>
+                <span>de 1</span>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Pablo Merch&aacute;n-Rivera. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
+
+
+
+

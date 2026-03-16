@@ -5,6 +5,7 @@
     --text: #1d2228;
     --text-muted: #59616c;
     --heading: #12161b;
+    --subheading: #2e5349;
     --accent: #155e4a;
     --accent-soft: #1f7a60;
     --border: #d5d1c4;
@@ -26,6 +27,7 @@
     --text: #e4e8ed;
     --text-muted: #afb6c0;
     --heading: #f5f7fa;
+    --subheading: #9fc8ba;
     --accent: #60c09f;
     --accent-soft: #83d4b8;
     --border: #364150;
@@ -61,18 +63,13 @@ header {
     width: min(var(--container), calc(100% - 2rem));
     margin: 2.3rem auto 1.15rem;
     padding: 0;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas:
-        'title title'
-        'tagline toggle';
-    align-items: center;
-    column-gap: var(--space-2);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     row-gap: 0.35rem;
 }
 
 header h1 {
-    grid-area: title;
     margin: 0;
     font-family: 'IBM Plex Serif', serif;
     font-size: clamp(1.6rem, 3.6vw, 2.2rem);
@@ -92,7 +89,6 @@ header h1 {
 }
 
 .site-tagline {
-    grid-area: tagline;
     margin: 0;
     color: var(--text-muted);
     font-size: 0.95rem;
@@ -115,7 +111,7 @@ nav {
 .menu-icon {
     display: none;
     padding: 0.75rem;
-    margin-left: auto;
+    margin-left: 0;
     margin-right: 0.15rem;
     border: 0;
     background: transparent;
@@ -126,6 +122,7 @@ nav {
 }
 
 .nav-links {
+    order: 1;
     width: auto;
     display: inline-flex;
     justify-content: flex-start;
@@ -143,7 +140,7 @@ nav {
     padding: 0.44rem 0.76rem;
     border: 0;
     border-radius: 10px;
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 0.9rem;
     font-weight: 500;
     color: var(--text-muted);
@@ -161,6 +158,41 @@ nav {
 .nav-links a.active {
     color: color-mix(in srgb, var(--accent) 76%, var(--heading) 24%);
     background: color-mix(in srgb, var(--accent) 10%, var(--surface) 90%);
+}
+
+.header-controls {
+    order: 2;
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+.lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 24px;
+    padding: 0 0.55rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--surface) 94%, var(--bg-alt) 6%);
+    color: var(--heading);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.lang-toggle:hover,
+.lang-toggle:focus-visible {
+    border-color: var(--accent);
+    color: var(--accent-soft);
+    text-decoration: none;
 }
 
 .container {
@@ -198,15 +230,41 @@ h2 {
 }
 
 h3 {
-    margin: 0 0 0.5rem;
+    margin: 1.25rem 0 0.7rem;
     font-family: 'IBM Plex Serif', serif;
     font-size: 1.1rem;
     line-height: 1.35;
-    color: var(--heading);
+    color: var(--subheading);
 }
 
 p {
     margin: 0 0 1rem;
+}
+
+ul,
+ol {
+    margin: 0.35rem 0 1rem;
+    padding-left: 1.2rem;
+}
+
+ul li,
+ol li {
+    margin-bottom: 0.3rem;
+}
+
+ul li:last-child,
+ol li:last-child {
+    margin-bottom: 0;
+}
+
+ul + p,
+ol + p {
+    margin-top: 0.95rem;
+}
+
+ul + h3,
+ol + h3 {
+    margin-top: 1.45rem;
 }
 
 a {
@@ -268,7 +326,20 @@ a:focus-visible {
 }
 
 .simple-list li {
-    margin-bottom: 0.55rem;
+    margin-bottom: 0.24rem;
+}
+
+.compact-list {
+    margin: 0.35rem 0 0;
+    padding-left: 1.2rem;
+}
+
+.compact-list li {
+    margin-bottom: 0.2rem;
+}
+
+.cv-note {
+    margin-top: 0.85rem;
 }
 
 .publication-list {
@@ -284,6 +355,12 @@ a:focus-visible {
     display: inline-block;
     font-weight: 600;
     line-height: 1.45;
+}
+
+.translation-note {
+    margin: 0.35rem 0 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
 }
 
 .contact-grid {
@@ -356,9 +433,7 @@ footer p {
 }
 
 .theme-toggle {
-    grid-area: toggle;
     position: static;
-    justify-self: end;
     align-self: center;
 }
 
@@ -459,12 +534,13 @@ code {
     }
 
     nav {
-        justify-content: flex-end;
+        justify-content: flex-start;
         min-height: 50px;
     }
 
     .menu-icon {
         display: block;
+        order: 3;
     }
 
     .nav-links {
@@ -499,18 +575,14 @@ code {
         border-radius: 8px;
     }
 
-    .theme-toggle {
-        justify-self: end;
+    .header-controls {
+        margin-left: auto;
     }
 }
 
 @media (max-width: 560px) {
     body {
         font-size: 15px;
-    }
-
-    header {
-        grid-template-columns: minmax(0, 1fr) auto;
     }
 
     .card,
