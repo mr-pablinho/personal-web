@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retrieval Augmented Generation, Part 1: Build a Solid Baseline - Pablo Merch&aacute;n-Rivera</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <script defer src="../scripts.js"></script>
+</head>
+
+<body class="dark-mode">
+    <header>
+        <h1><a href="../index.html" class="brand-link">The Almanack of Pablo</a></h1>
+        <p class="site-tagline">AI Builder and Data Storyteller</p>
+    </header>
+
+    <nav>
+        <button class="menu-icon" id="menu-icon" aria-label="Toggle navigation">&#9776;</button>
+        <div class="nav-links" id="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../publications.html">Publications</a>
+            <a href="../resume.html">Resume</a>
+            <a href="../blog.html" class="active">Blog</a>
+            <a href="../contact.html">Contact</a>
+        </div>
+
+        <div class="header-controls">
+            <a href="../es/blog.html" class="lang-toggle" aria-label="Switch to Spanish">ES</a>
+            <div class="theme-toggle">
+                <input type="checkbox" id="dark-mode-toggle" class="toggle-checkbox" aria-label="Toggle dark mode">
+                <label for="dark-mode-toggle" class="toggle-label"></label>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section>
+            <h2>Notes on RAG (Part 1): Build a Solid Baseline</h2>
+            <p class="meta">February 20, 2026</p>
+
+            <p>The reason Retrieval Augmented Generation (RAG) exists is simple. Most real documents are too long to
+                throw into one prompt. Even when
+                they fit, performance often drops because the model has to scan too much irrelevant text before it can
+                answer a focused question.</p>
+
+            <p>Retrieval augmented generation changes that dynamic. Instead of asking the model to read everything, we
+                first retrieve a small set of relevant passages. Then we ask for an answer grounded in that context.
+                The model does less searching and more reasoning.</p>
+
+            <h3>Why a Baseline Matters</h3>
+            <p>Many teams jump straight to advanced tricks and lose track of what is helping. A baseline gives you a
+                clean reference. If quality is poor, you can diagnose one layer at a time rather than tuning everything
+                at once.</p>
+
+            <p>A practical baseline has four parts. Chunk the source text, represent chunks and queries in the same
+                semantic space, retrieve the closest chunks, and answer with those chunks as context.</p>
+
+            <h3>Chunking Is an Editorial Choice</h3>
+            <p>Chunking is not just preprocessing. It is content design. If chunks are too short, meaning gets cut
+                apart. If chunks are too long, retrieval gets noisy and expensive.</p>
+
+            <p>Size based chunking with overlap is a strong first step because it works on almost any document. Later
+                you can move to structure based chunking when your documents have reliable headings or sections.</p>
+
+            <h3>Embeddings Are About Relative Meaning</h3>
+            <p>Embeddings turn text into vectors so similar meaning ends up near similar meaning. This lets a question
+                about incident handling find a passage about postmortems even if the exact words differ.</p>
+
+            <p>The key rule is consistency. Use the same embedding model for both stored chunks and incoming queries.
+                If you mix models, distance in vector space stops being trustworthy.</p>
+
+            <h3>Retrieval First, Generation Second</h3>
+            <p>When a RAG answer is wrong, the first question should be about retrieval. Did we retrieve the right
+                evidence. If not, prompt edits on the generation side will not fix the root cause.</p>
+
+            <p>In a healthy baseline, the retrieved chunks are visibly relevant before you ever read the final answer.
+                That one habit saves a lot of debugging time.</p>
+
+            <h3>Common Early Failure Patterns</h3>
+            <p>At this stage you usually see three issues.</p>
+            <ul class="compact-list">
+                <li>Relevant section exists but is split across chunks in a way that loses local meaning.</li>
+                <li>Question uses exact terms and semantic retrieval misses them.</li>
+                <li>Answer sounds fluent but is not clearly grounded in retrieved text.</li>
+            </ul>
+
+            <p>These are normal baseline failures. The goal of Part 1 is not perfection. The goal is a reliable system
+                you can improve with confidence.</p>
+
+            <h3>What to Watch Before Moving On</h3>
+            <p>Before adding complexity, check three things. Retrieval relevance should look good by inspection. The
+                answer should cite or mirror the retrieved context. The system should admit uncertainty when evidence is
+                missing.</p>
+
+            <p>The takeaway from Part 1 is straightforward. Strong RAG starts with retrieval discipline. Once this is
+                stable, advanced improvements actually pay off.</p>
+
+            <p><a href="rag-part-2.html">Continue to Part 2: Hybrid Retrieval, Reranking, and Evaluation</a></p>
+            <a href="../blog.html" class="back-button">&larr; Back to Blog</a>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Pablo Merch&aacute;n-Rivera. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

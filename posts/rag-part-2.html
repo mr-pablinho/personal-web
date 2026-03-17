@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes on RAG (Part 2): Hybrid Search, Reranking, and Evaluation - Pablo Merch&aacute;n-Rivera</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <script defer src="../scripts.js"></script>
+</head>
+
+<body class="dark-mode">
+    <header>
+        <h1><a href="../index.html" class="brand-link">The Almanack of Pablo</a></h1>
+        <p class="site-tagline">AI Builder and Data Storyteller</p>
+    </header>
+
+    <nav>
+        <button class="menu-icon" id="menu-icon" aria-label="Toggle navigation">&#9776;</button>
+        <div class="nav-links" id="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../publications.html">Publications</a>
+            <a href="../resume.html">Resume</a>
+            <a href="../blog.html" class="active">Blog</a>
+            <a href="../contact.html">Contact</a>
+        </div>
+
+        <div class="header-controls">
+            <a href="../es/blog.html" class="lang-toggle" aria-label="Switch to Spanish">ES</a>
+            <div class="theme-toggle">
+                <input type="checkbox" id="dark-mode-toggle" class="toggle-checkbox" aria-label="Toggle dark mode">
+                <label for="dark-mode-toggle" class="toggle-label"></label>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section>
+            <h2>Retrieval Augmented Generation, Part 2: Hybrid Search, Reranking, and Evaluation</h2>
+            <p class="meta">February 25, 2026</p>
+
+            <p>Once the baseline works, the next challenge appears quickly. Good answers become inconsistent across
+                query styles. Some questions are phrased semantically. Others depend on exact terms, acronyms, or
+                product names. A single retrieval method usually misses one of those groups.</p>
+
+            <h3>Why Semantic Search Alone Plateaus</h3>
+            <p>Vector search is excellent at meaning level similarity. It struggles when exact wording matters.
+                Questions about incident codes, legal clauses, or version tags can fail even when the answer exists in
+                the source text.</p>
+
+            <p>This is where lexical retrieval helps. BM25 scores documents by term match and term rarity. In practice,
+                semantic retrieval and lexical retrieval fail in different ways, which is exactly why they work better
+                together than alone.</p>
+
+            <h3>Hybrid Retrieval Without Overengineering</h3>
+            <p>The usual pattern is simple. Run semantic retrieval and BM25 in parallel. Merge both rankings with a
+                fusion rule. A common choice is reciprocal rank fusion because it rewards chunks that rank well across
+                multiple methods.</p>
+
+            <p>You do not need complex orchestration at first. A small top k from each retriever plus a clean merge
+                already improves coverage on hard queries.</p>
+
+            <h3>Reranking Is a Precision Layer</h3>
+            <p>Hybrid retrieval gives a better candidate pool. Reranking decides which of those candidates are truly
+                central to the user question. This step is helpful when several chunks look relevant but only one or
+                two actually answer the question.</p>
+
+            <p>The tradeoff is latency. You add an extra model call. Keep reranking focused on a small candidate set so
+                precision improves without creating unnecessary delay.</p>
+
+            <h3>Contextual Retrieval Restores Lost Meaning</h3>
+            <p>Chunking always removes some context from the original document flow. A passage can look vague in
+                isolation even though it is clear in the full report.</p>
+
+            <p>Contextual retrieval addresses that by adding a brief situating note to each chunk before indexing. The
+                goal is not to rewrite the chunk. The goal is to preserve document level meaning so retrieval has
+                better signals.</p>
+
+            <h3>Evaluate Retrieval and Answering Separately</h3>
+            <p>This is the most important habit in production RAG. If retrieval quality is weak, generation quality
+                will be unstable no matter how polished the prompt looks.</p>
+
+            <p>A practical evaluation loop tracks both layers.</p>
+            <ul class="compact-list">
+                <li>Retrieval metrics such as recall at k and context relevance.</li>
+                <li>Answer metrics such as groundedness, completeness, and instruction fidelity.</li>
+                <li>Operational metrics such as latency and cost per request.</li>
+            </ul>
+
+            <p>When these are measured together, decisions become clear. If recall is high but groundedness is low,
+                generation needs work. If groundedness is high only when recall is high, retrieval is still the main
+                bottleneck.</p>
+
+            <h3>Operational Tradeoffs to Keep in View</h3>
+            <p>Every quality gain has a cost profile. Hybrid retrieval adds index maintenance. Reranking adds latency.
+                Contextualization adds preprocessing time. This is normal. The objective is not maximum complexity. The
+                objective is stable quality at acceptable cost and speed.</p>
+
+            <p>The takeaway from Part 2 is this. Production grade RAG is built from layered retrieval decisions and
+                honest evaluation. Once those are in place, answers become reliable instead of occasionally impressive.
+            </p>
+
+            <p><a href="rag-part-1.html">Back to Part 1: Build a Solid Baseline</a></p>
+            <a href="../blog.html" class="back-button">&larr; Back to Blog</a>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Pablo Merch&aacute;n-Rivera. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
